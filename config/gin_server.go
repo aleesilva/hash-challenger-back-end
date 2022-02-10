@@ -13,8 +13,9 @@ type GinServer struct {
 }
 
 func MakeServer() GinServer {
+
 	return GinServer{
-		port:   "9001",
+		port:   LoadDotEnvVariable("APP_PORT"),
 		server: gin.Default(),
 	}
 }
@@ -22,5 +23,5 @@ func MakeServer() GinServer {
 func (gs *GinServer) Run() {
 	route := routes.Routes(gs.server)
 
-	log.Fatal(route.Run(":"+gs.port))
+	log.Fatal(route.Run(":" + gs.port))
 }
