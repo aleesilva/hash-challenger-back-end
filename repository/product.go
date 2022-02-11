@@ -2,6 +2,7 @@ package repository
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 )
 
@@ -23,18 +24,27 @@ func ListProducts() []Product {
 	return product
 }
 
-func GetProductById(productId int) (Product, bool) {
-	var product []Product
+func GetProductById(productId int) (*Product, error) {
+	productArr := []Product{}
+	product := Product{}
 	file, _ := ioutil.ReadFile("./db/products.json")
-	if err := json.Unmarshal([]byte(file), &product); err != nil {
-		panic(err)
+
+	if err := json.Unmarshal([]byte(file), &productArr); err != nil {
+		return nil, errors.New("database is not online ")
 	}
-	for _, value := range product {
+
+	for _, value := range productArr {
 		if value.Id == productId {
-			return value, true
+			product = Product{
+				Id:          value.Id,
+				Title:       value.Title,
+				Description: value.Description,
+				Amount:      value.Amount,
+				IsGift:      value.IsGift,
+			}
+			return &product, nil
 		}
 
 	}
-	var noP Product
-	return noP, false
+	return nil, errors.New("Product not found")
 }

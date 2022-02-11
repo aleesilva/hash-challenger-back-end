@@ -22,19 +22,19 @@ type Product struct {
 
 type CartProduct struct {
 	Id          int     `json:"id"`
+	Quantity    int     `json:"quantity"`
 	UnitAmount  float32 `json:"unit_amount"`
 	TotalAmount float32 `json:"total_amount"`
 	Discount    float32 `json:"discount"`
 	IsGift      bool    `json:"is_gift"`
-	Quantity    int     `json:"quantity"`
 }
 
 func ProductDetails(productsPayload ProductPayload) (*CartProduct, error) {
 	cartProduct := CartProduct{}
-	product, exists := repository.GetProductById(productsPayload.Id)
+	product, err := repository.GetProductById(productsPayload.Id)
 
-	if !exists {
-		return nil, errors.New("Product not found")
+	if err != nil {
+		return nil, errors.New("product not found")
 	}
 
 	if product.IsGift {
