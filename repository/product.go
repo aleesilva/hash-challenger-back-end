@@ -23,6 +23,18 @@ func ListProducts() []Product {
 	return product
 }
 
-func GetProductById() {
+func GetProductById(productId int) (Product, bool) {
+	var product []Product
+	file, _ := ioutil.ReadFile("./db/products.json")
+	if err := json.Unmarshal([]byte(file), &product); err != nil {
+		panic(err)
+	}
+	for _, value := range product {
+		if value.Id == productId {
+			return value, true
+		}
 
+	}
+	var noP Product
+	return noP, false
 }
