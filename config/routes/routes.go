@@ -10,7 +10,7 @@ func Routes(router *gin.Engine) *gin.Engine {
 	{
 		cart := api.Group("cart")
 		{
-			cart.GET("checkout", controllers.Checkout)
+			cart.POST("checkout", controllers.Checkout)
 		}
 	}
 
