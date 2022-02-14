@@ -1,18 +1,17 @@
-package grpc
+package integrations
 
 import (
 	"context"
 	"log"
 
-	env "github.com/aleesilva/hash-challenger-back-end/config"
 	"github.com/aleesilva/hash-challenger-back-end/pb"
 
 	"google.golang.org/grpc"
 )
 
-func GetDiscount(productId int) float32 {
+func GetDiscount(productId int) (float32, error) {
 
-	conn, err := grpc.Dial("localhost:"+env.LoadDotEnvVariable("GRPC_SERVICE_PORT"), grpc.WithInsecure())
+	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -25,8 +24,8 @@ func GetDiscount(productId int) float32 {
 
 	res, err := client.GetDiscount(context.Background(), req)
 	if err != nil {
-		log.Fatal(err)
+		return float32(0), err
 	}
 
-	return res.GetPercentage()
+	return res.GetPercentage(), nil
 }
