@@ -27,6 +27,7 @@ func ListProducts() []Product {
 func GetProductById(productId int) (*Product, error) {
 	productArr := []Product{}
 	product := Product{}
+
 	file, _ := ioutil.ReadFile("./db/products.json")
 
 	if err := json.Unmarshal([]byte(file), &productArr); err != nil {
@@ -42,6 +43,7 @@ func GetProductById(productId int) (*Product, error) {
 				Amount:      value.Amount,
 				IsGift:      value.IsGift,
 			}
+
 			return &product, nil
 		}
 
