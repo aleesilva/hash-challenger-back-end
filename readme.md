@@ -4,6 +4,15 @@
 
 <hr>
 
+## Base
+Para criação do projeto utilizei alguns conceitos de clean architeture por mais que o projeto fosse básico
+
+queria deixar as responsabilidade bem divididas então caso a gente queira utilizar outras libs no futuro isso esteja
+
+desacoplado ao máximo.
+
+<hr>
+
 ### Estrutura do Projeto
 ```
 📦project
