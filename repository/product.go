@@ -48,3 +48,28 @@ func GetProductById(productId int) (*Product, error) {
 	}
 	return nil, errors.New("Product not found")
 }
+
+func GetProductGift() *Product {
+	productArr := []Product{}
+	product := Product{}
+	file, _ := ioutil.ReadFile("./db/products.json")
+
+	if err := json.Unmarshal([]byte(file), &productArr); err != nil {
+		return &product
+	}
+
+	for _, value := range productArr {
+		if value.IsGift {
+			product = Product{
+				Id:          value.Id,
+				Title:       value.Title,
+				Description: value.Description,
+				Amount:      value.Amount,
+				IsGift:      value.IsGift,
+			}
+			return &product
+		}
+
+	}
+	return &product
+}
