@@ -3,6 +3,7 @@ package integrations
 import (
 	"context"
 	"log"
+	"os"
 
 	"github.com/aleesilva/hash-challenger-back-end/pb"
 
@@ -11,7 +12,7 @@ import (
 
 func GetDiscount(productId int) (float32, error) {
 
-	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+	conn, err := grpc.Dial("grpc-service:"+os.Getenv("GRPC_SERVICE_PORT"), grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}

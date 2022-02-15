@@ -1,8 +1,6 @@
 package usecases
 
-import (
-	"github.com/aleesilva/hash-challenger-back-end/integrations"
-)
+import "github.com/aleesilva/hash-challenger-back-end/integrations"
 
 func ApplyDiscount(cartProduct CartProduct) int {
 	discount, err := integrations.GetDiscount(cartProduct.Id)

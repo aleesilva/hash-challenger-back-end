@@ -1,7 +1,6 @@
 package test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/aleesilva/hash-challenger-back-end/usecases"
@@ -24,5 +23,6 @@ func TestProductDetailsSuccess(t *testing.T) {
 		Quantity: 2,
 	})
 
-	fmt.Println(result)
+	t.Log("product details succefuly: ", result)
+
 }
