@@ -2,6 +2,7 @@ package config
 
 import (
 	"log"
+	"os"
 
 	"github.com/aleesilva/hash-challenger-back-end/config/routes"
 	"github.com/gin-gonic/gin"
@@ -15,7 +16,7 @@ type GinServer struct {
 func MakeServer() GinServer {
 
 	return GinServer{
-		port:   LoadDotEnvVariable("APP_PORT"),
+		port:   os.Getenv("APP_PORT"),
 		server: gin.Default(),
 	}
 }
